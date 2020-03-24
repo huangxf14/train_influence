@@ -271,8 +271,8 @@ function [] = applyStochasticSquaredErrorTwoLayerPerceptronMNIST()
             temp_num = method;
             temp_device_rate = zeros(1,device_num);
             for subcarrier_cnt = 1:subcarrier_num
-                device_cnt = mod(temp_num,device_num)+1;
-                temp_num = floor(temp_num/device_num);
+                device_cnt = mod(temp_num,subcarrier_num)+1;
+                temp_num = floor(temp_num/5);
                 temp_device_rate(device_cnt) = temp_device_rate(device_cnt) + device_v(subcarrier_cnt,device_cnt);
             end;
             temp_influ = 0;
@@ -286,7 +286,6 @@ function [] = applyStochasticSquaredErrorTwoLayerPerceptronMNIST()
                 device_rate = temp_device_rate;
             end;
         end;
-        max_influ
         influ_brute(end+1) = max_influ;
 
         %with f(rate)
@@ -311,8 +310,8 @@ function [] = applyStochasticSquaredErrorTwoLayerPerceptronMNIST()
 %             %[max_rate,max_device] = max(device_v(subcarrier_cnt,:));
 %             device_rate(max_device) = device_rate(max_device) + max_rate;
 %         end
-% % 
-% %         %iteration
+% 
+%         %iteration
 %         iter_num = 0;
 %         iter_max = 10000;
 % 
@@ -355,7 +354,6 @@ function [] = applyStochasticSquaredErrorTwoLayerPerceptronMNIST()
             end
             temp_influ = temp_influ + ft(device_cnt,min(max_sample_size,device_rate(device_cnt)),end);
         end
-        temp_influ
         influ_iter(end+1) = temp_influ;
 
         %select data for transmission according to rate
